@@ -329,7 +329,7 @@ function build(): Poster[] {
         const base = 6 + seed * 16;
         const price = Math.round(base * style.mult * 100) / 100;
         const wasPrice = Math.round(price * (1.6 + seed * 1.4) * 100) / 100;
-        const store = stores[(si + sti + Math.floor(seed * 6)) % stores.length];
+        const store = stores[(si + sti + Math.floor(seed * 6)) % stores.length]!;
         out.push({
           id: `${cat.id}-${si}-${sti}`,
           title: `${subject} — ${style.key}`,

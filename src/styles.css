@@ -151,5 +151,56 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(circle at 15% -10%, color-mix(in oklab, var(--acid) 12%, transparent), transparent 55%),
+      radial-gradient(circle at 90% 0%, color-mix(in oklab, var(--blaze) 12%, transparent), transparent 45%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 }
+
+/* Gritty film-grain / halftone overlay */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image: radial-gradient(currentColor 0.5px, transparent 0.6px);
+    background-size: 4px 4px;
+  }
+}
+
+@utility tape {
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    width: 4.5rem;
+    height: 1.25rem;
+    transform: translateX(-50%) rotate(-3deg);
+    background: color-mix(in oklab, var(--acid) 35%, transparent);
+    mix-blend-mode: screen;
+  }
+}
+
+@utility skew-tag {
+  transform: skewX(-8deg);
+}
+
+@utility sticker-shadow {
+  box-shadow: 4px 4px 0 0 var(--acid);
+}
+

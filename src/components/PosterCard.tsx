@@ -8,6 +8,7 @@ export function PosterCard({ poster }: { poster: Poster }) {
 
   return (
     <a
+      data-poster-id={poster.id}
       href={poster.url}
       target="_blank"
       rel="noopener noreferrer nofollow"
@@ -50,7 +51,7 @@ export function PosterCard({ poster }: { poster: Poster }) {
             {poster.rating}
           </span>
         </div>
-        <span className="mt-2 flex items-center justify-center gap-1 border border-primary/60 bg-primary/10 py-1.5 font-mono text-[11px] uppercase tracking-widest text-primary group-hover:bg-primary group-hover:text-primary-foreground">
+        <span className="mt-2 flex items-center justify-center gap-1 border border-primary/60 bg-primary/10 py-1.5 font-mono text-[11px] uppercase tracking-widest text-primary group-hover:bg-prima[...]
           Find it on {poster.store} <ExternalLink className="size-3" />
         </span>
       </div>

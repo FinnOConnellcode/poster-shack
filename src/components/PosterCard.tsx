@@ -14,12 +14,23 @@ export function PosterCard({ poster }: { poster: Poster }) {
       rel="noopener noreferrer nofollow"
       className="group relative flex flex-col border border-border bg-card transition-transform duration-150 hover:-translate-y-1 hover:border-primary"
     >
-      <div
-        className="grain relative aspect-[2/3] overflow-hidden text-foreground/70"
-        style={{
-          backgroundImage: `linear-gradient(150deg, oklch(0.55 0.19 ${poster.hue}), oklch(0.18 0.05 ${(poster.hue + 60) % 360}) 70%)`,
-        }}
-      >
+      <div className="grain relative aspect-[2/3] overflow-hidden text-foreground/70">
+        {/* thumbnail image (falls back to gradient if image fails to load) */}
+        <img
+          src={poster.thumbnail}
+          alt={`${poster.subject} poster`}
+          loading="lazy"
+          decoding="async"
+          width={600}
+          height={900}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{
+            // subtle gradient overlay behind image in case of load issues
+            backgroundImage: `linear-gradient(150deg, oklch(0.55 0.19 ${poster.hue}), oklch(0.18 0.05 ${(poster.hue + 60) % 360}) 70%)`,
+          }}
+        />
+
+        {/* overlay text remains on top of image */}
         <div className="absolute inset-0 flex flex-col justify-between p-3">
           <span className="skew-tag w-fit bg-background/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-primary">
             {cat?.name}
@@ -28,6 +39,7 @@ export function PosterCard({ poster }: { poster: Poster }) {
             {poster.subject}
           </span>
         </div>
+
         <span className="absolute right-0 top-3 bg-accent px-2 py-1 font-mono text-[11px] font-bold text-accent-foreground">
           -{off}%
         </span>
@@ -51,7 +63,7 @@ export function PosterCard({ poster }: { poster: Poster }) {
             {poster.rating}
           </span>
         </div>
-        <span className="mt-2 flex items-center justify-center gap-1 border border-primary/60 bg-primary/10 py-1.5 font-mono text-[11px] uppercase tracking-widest text-primary group-hover:bg-prima[...]
+        <span className="mt-2 flex items-center justify-center gap-1 border border-primary/60 bg-primary/10 py-1.5 font-mono text-[11px] uppercase tracking-widest text-primary group-hover:bg-primary/20">
           Find it on {poster.store} <ExternalLink className="size-3" />
         </span>
       </div>

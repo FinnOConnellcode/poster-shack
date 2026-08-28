@@ -307,6 +307,7 @@ export type Poster = {
   hue: number;
   rating: number;
   shipsFree: boolean;
+  thumbnail: string; // new thumbnail URL for preview images
 };
 
 // deterministic pseudo-random so server + client render identically
@@ -330,8 +331,11 @@ function build(): Poster[] {
         const price = Math.round(base * style.mult * 100) / 100;
         const wasPrice = Math.round(price * (1.6 + seed * 1.4) * 100) / 100;
         const store = stores[(si + sti + Math.floor(seed * 6)) % stores.length]!;
+        const id = `${cat.id}-${si}-${sti}`;
+        // Use picsum.photos seeded images for deterministic thumbnails
+        const thumbnail = `https://picsum.photos/seed/${encodeURIComponent(id)}/600/900`;
         out.push({
-          id: `${cat.id}-${si}-${sti}`,
+          id,
           title: `${subject} — ${style.key}`,
           subject,
           style: style.key,
@@ -344,6 +348,7 @@ function build(): Poster[] {
           hue: Math.floor(seed * 360),
           rating: Math.round((4 + seed) * 10) / 10,
           shipsFree: seed > 0.55,
+          thumbnail,
         });
       });
     });

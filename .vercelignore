@@ -1,3 +1,0 @@
-# Ignore bun files so Vercel uses npm instead of Bun for builds
-bun.lock
-bunfig.toml

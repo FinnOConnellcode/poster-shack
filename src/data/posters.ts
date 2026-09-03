@@ -1,3 +1,5 @@
+import { categoryImages } from "@/data/categoryImages";
+
 export type Category = {
   id: string;
   name: string;
@@ -332,8 +334,8 @@ function build(): Poster[] {
         const wasPrice = Math.round(price * (1.6 + seed * 1.4) * 100) / 100;
         const store = stores[(si + sti + Math.floor(seed * 6)) % stores.length]!;
         const id = `${cat.id}-${si}-${sti}`;
-        // Use picsum.photos seeded images for deterministic thumbnails
-        const thumbnail = `https://picsum.photos/seed/${encodeURIComponent(id)}/600/900`;
+        // real poster artwork per category
+        const thumbnail = categoryImages[cat.id] ?? "";
         out.push({
           id,
           title: `${subject} — ${style.key}`,

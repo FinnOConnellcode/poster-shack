@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "vercel-build": "NITRO_PRESET=vercel vite build"
+    "vercel-build": "vite build"
   },
   "overrides": {
     "rolldown": "1.2.1"

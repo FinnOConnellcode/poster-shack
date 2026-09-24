@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import { categories, posters, type Poster } from "@/data/posters";
 import { PosterCard } from "@/components/PosterCard";
+import { RealPosterResults } from "@/components/RealPosterResults";
 
 type Sort = "deals" | "cheap" | "expensive" | "az";
 
@@ -112,6 +113,8 @@ export function PosterBrowser({
           </div>
         )}
       </div>
+
+      <RealPosterResults query={query} />
 
       <p className="mt-6 font-mono text-xs uppercase tracking-widest text-muted-foreground">
         {results.length.toLocaleString()} deals found

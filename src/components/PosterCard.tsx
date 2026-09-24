@@ -24,10 +24,21 @@ export function PosterCard({ poster }: { poster: Poster }) {
           width={600}
           height={900}
           className="absolute inset-0 h-full w-full object-cover"
-          style={{
-            // subtle gradient overlay behind image in case of load issues
-            backgroundImage: `linear-gradient(150deg, oklch(0.55 0.19 ${poster.hue}), oklch(0.18 0.05 ${(poster.hue + 60) % 360}) 70%)`,
-          }}
+          style={(() => {
+            let h = 0;
+            for (const ch of String(poster.id)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+            const flip = h % 2 === 0 ? -1 : 1;
+            const zoom = 1 + ((h >> 3) % 40) / 100;
+            const x = (h >> 6) % 101;
+            const y = (h >> 9) % 101;
+            const hueShift = ((h >> 12) % 7) * 25 - 75;
+            return {
+              backgroundImage: `linear-gradient(150deg, oklch(0.55 0.19 ${poster.hue}), oklch(0.18 0.05 ${(poster.hue + 60) % 360}) 70%)`,
+              objectPosition: `${x}% ${y}%`,
+              transform: `scale(${flip * zoom}, ${zoom})`,
+              filter: `hue-rotate(${hueShift}deg) saturate(${0.9 + ((h >> 15) % 5) / 10})`,
+            };
+          })()}
         />
 
         {/* overlay text remains on top of image */}
